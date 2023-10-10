@@ -4,7 +4,9 @@ let init = setInterval(() => {
     if (netflix != undefined) {
         clearInterval(init);
         document.addEventListener('addLoop', (e) => {
-            console.log("adding loop - loop time is " + e.loopTime)
+            console.log("adding loop - loop time is " + e.detail.loopTime)
+            if (!e.loopTime) 
+                e.loopTime = 10;
             if (document.func) clearInterval(document.func);
 
             let MILLIS_IN_SEC = 1000;

@@ -4,6 +4,7 @@
     "version": "1.0",
     "description": "Loop sections of Netflix videos.",
     "permissions": ["activeTab", "storage", "scripting", "<all_urls>"],
+    "host_permissions": ["activeTab", "storage", "scripting", "<all_urls>"],
     "web_accessible_resources": [{
       "resources": ["addLoop.js", "clearLoop.js"],
       "matches": ["<all_urls>"]
