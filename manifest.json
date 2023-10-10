@@ -5,11 +5,22 @@
     "description": "Loop sections of Netflix videos.",
     "permissions": ["activeTab", "storage", "scripting", "<all_urls>"],
     "web_accessible_resources": [{
-      "resources": ["script.js"],
+      "resources": ["addLoop.js", "clearLoop.js"],
       "matches": ["<all_urls>"]
     }],
     "action": {
       "default_popup": "popup.html"
-    }
+    },
+    "content_scripts": [{
+      "world": "MAIN",
+      "js": ["popup.js"],
+      "matches": ["<all_urls>"],
+      "run_at": "document_idle"
+    }, {
+      "world": "MAIN",
+      "js": ["content.js"],
+      "matches": ["<all_urls>"],
+      "run_at": "document_idle"
+    }]
 }
   
