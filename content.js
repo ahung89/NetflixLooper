@@ -22,6 +22,15 @@ let init = setInterval(() => {
                 console.log(new Date().getTime() / 1000);
                 player.seek(start);
             }, MILLIS_IN_SEC * loopTime);
+
+            // Dispatch another event with the start time.
+            let responseEvent = new CustomEvent('loopAdded', {
+                    detail: {
+                        startTime: start
+                }
+            });
+            document.dispatchEvent(responseEvent);
+
         })
         document.addEventListener('clearLoop', () => {
             if (document.func) {

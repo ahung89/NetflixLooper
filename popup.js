@@ -23,14 +23,55 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // chrome.storage.local.get(['loops'], function(result) {
-    //     if (result.loops) {
-    //         const ul = document.getElementById('savedLoops');
-    //         result.loops.forEach(loop => {
+    chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+        console.log("message received by runtime!")
+        if (message.type === 'loopAdded') {
+            console.log("'loopAdded' message received by runtime!")
+            let startTime = message.startTime;
+            addToSavedLoops(startTime);
+        }
+    });
+
+    // Fetch and display the saved loops when the popup is loaded
+    //loadSavedLoops();
+    let savedLoopsList = document.getElementById('savedLoops');
+
+    // Utility function to add a loop to the saved loops list and store it
+    function addToSavedLoops(startTime) {
+        const li = document.createElement('li');
+        li.className = 'loop-item';
+
+        const timeSpan = document.createElement('span');
+        timeSpan.innerText = `Loop starting at ${startTime}`;
+        timeSpan.className = 'loop-time';
+        
+        const jumpButton = document.createElement('button');
+        jumpButton.innerText = 'Jump to time';
+        jumpButton.onclick = () => {
+            // Implement functionality to jump to this loop in Netflix tab.
+        };
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Delete';
+        deleteButton.onclick = () => {
+            // Implement functionality to delete this loop from saved list and chrome.storage.
+        };
+
+        li.appendChild(timeSpan);
+        li.appendChild(jumpButton);
+        li.appendChild(deleteButton);
+        savedLoopsList.appendChild(li);
+    }
+
+    // Utility function to load and display the saved loops
+    // function loadSavedLoops() {
+    //     chrome.storage.local.get('loops', ({loops}) => {
+    //         loops = loops || [];
+    //         loops.forEach(loop => {
     //             const li = document.createElement('li');
-    //             li.textContent = `${loop.start} - ${loop.end}`;
-    //             ul.appendChild(li);
+    //             li.innerText = `Loop starting at ${loop.startTime}`;
+    //             savedLoopsList.appendChild(li);
     //         });
-    //     }
-    // });
+    //     });
+    // }
 });
