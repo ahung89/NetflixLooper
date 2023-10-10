@@ -3,11 +3,11 @@
     "name": "Netflix Looper",
     "version": "1.0",
     "description": "Loop sections of Netflix videos.",
-    "permissions": ["activeTab", "storage", "scripting", "<all_urls>"],
-    "host_permissions": ["activeTab", "storage", "scripting", "<all_urls>"],
+    "permissions": ["activeTab", "storage", "scripting"],
+    "host_permissions": ["*://*.netflix.com/*"],
     "web_accessible_resources": [{
       "resources": ["addLoop.js", "clearLoop.js"],
-      "matches": ["<all_urls>"]
+      "matches": ["*://*.netflix.com/*"]
     }],
     "action": {
       "default_popup": "popup.html"
@@ -15,12 +15,12 @@
     "content_scripts": [{
       "world": "MAIN",
       "js": ["popup.js"],
-      "matches": ["<all_urls>"],
+      "matches": ["*://*.netflix.com/*"],
       "run_at": "document_idle"
     }, {
       "world": "MAIN",
       "js": ["content.js"],
-      "matches": ["<all_urls>"],
+      "matches": ["*://*.netflix.com/*"],
       "run_at": "document_idle"
     }]
 }

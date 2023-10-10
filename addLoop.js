@@ -1,9 +1,10 @@
-//console.log("adding loop. looptime be " + loopTime)
-console.log("line 4");
+chrome.storage.local.get('loopTime', function(result) {
+    console.log('loopTime value currently is ' + result.loopTime);
+    e = new CustomEvent("addLoop", {
+        detail: {
+            loopTime: result.loopTime
+        }
+    })
+    document.dispatchEvent(e)
+});
 
-e = new CustomEvent("addLoop", {
-    detail: {
-        loopTime: 10
-    }
-})
-document.dispatchEvent(e)

@@ -5,8 +5,7 @@ let init = setInterval(() => {
         clearInterval(init);
         document.addEventListener('addLoop', (e) => {
             console.log("adding loop - loop time is " + e.detail.loopTime)
-            if (!e.loopTime) 
-                e.loopTime = 10;
+            let loopTime = e.detail.loopTime;
             if (document.func) clearInterval(document.func);
 
             let MILLIS_IN_SEC = 1000;
@@ -15,13 +14,14 @@ let init = setInterval(() => {
             let playerId = videoPlayer.getAllPlayerSessionIds()[0];
             let player = videoPlayer.getVideoPlayerBySessionId(playerId);
             
-            let start = videoPlayer.getCurrentTimeBySessionId(playerId) - MILLIS_IN_SEC * e.loopTime;
+            let start = videoPlayer.getCurrentTimeBySessionId(playerId) - MILLIS_IN_SEC * loopTime;
             player.seek(start);
             
             document.func = setInterval(function() {
                 console.log("rewinding")
+                console.log(new Date().getTime() / 1000);
                 player.seek(start);
-            }, MILLIS_IN_SEC * e.loopTime);
+            }, MILLIS_IN_SEC * loopTime);
         })
         document.addEventListener('clearLoop', () => {
             if (document.func) {

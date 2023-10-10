@@ -1,18 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('loopLast10').addEventListener('click', function() {
-        console.log("line 1");
+    document.getElementById('loop').addEventListener('click', function() {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            console.log("line 2");
             let currentTab = tabs[0];  // There will be only one active tab in the current window
-            console.log("line 3");
-            chrome.scripting.executeScript({
-                target: {tabId: currentTab.id},
-                files: ['addLoop.js']
-            }, function(results) {
-                // const li = document.createElement('li');
-                // const ul = document.getElementById('savedLoops');
-                // li.textContent = results;
-                // ul.appendChild(li)
+            
+            chrome.storage.local.set({loopTime: document.getElementById('loopTime').value}, function() {
+                chrome.scripting.executeScript({
+                    target: {tabId: currentTab.id},
+                    files: ['addLoop.js']
+                });
             });
         });
     });
